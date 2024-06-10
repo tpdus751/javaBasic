@@ -28,7 +28,7 @@ public class View {
 					goToLogin(customer, customerStorage);
 					break;
 				case 2:
-					goToRegister();
+					goToRegister(customerStorage);
 					break;
 				case 0:
 					break;
@@ -38,8 +38,24 @@ public class View {
 		} while (!true);
 	}
 
-	private void goToRegister() {
-		// TODO Auto-generated method stub
+	private void goToRegister(CustomerStorage customerStorage) {
+		String id;
+		boolean isTrue = true;
+		Scanner input = new Scanner(System.in);
+		System.out.println("회원가입 진행");
+		System.out.print(">> 이름 : ");
+		String name = input.nextLine();
+		while (isTrue) {
+			System.out.print(">> ID : ");
+			id = input.nextLine();
+			isTrue = customerStorage.isPossibleId(id);
+			if (isTrue) {
+				System.out.println("이미 등록되어 있는 ID 입니다.");
+			} 
+				System.out.println("사용 가능한 ID 입니다.");
+		}
+		System.out.print(">> PASSWORD : ");
+		String password = input.nextLine();
 		
 	}
 

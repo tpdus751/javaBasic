@@ -3,9 +3,8 @@ package quizbank.model;
 public class Customer extends User {
 	
 	private int num;
-	private String registeredTime;
 	
-	public Customer(int num, String name, String id, String password, String registeredTime) {
+	public Customer(int num, String name, String id, String password) {
 		super();
 	}
 
@@ -17,13 +16,6 @@ public class Customer extends User {
 		this.num = num;
 	}
 
-	public String getRegisteredTime() {
-		return registeredTime;
-	}
-
-	public void setRegisteredTime(String registeredTime) {
-		this.registeredTime = registeredTime;
-	}
 	
 	
 }

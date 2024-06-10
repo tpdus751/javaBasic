@@ -1,6 +1,7 @@
 package quizbank.controller;
 
 import quizbank.model.Customer;
+import quizbank.model.CustomerStorage;
 import quizbank.model.QuizStorage;
 import quizbank.view.View;
 
@@ -9,6 +10,7 @@ public class Controller {
 	QuizStorage quizStorage;
 	View view;
 	Customer customer;
+	CustomerStorage customerStorage;
 	
 	String[] menuList = {
 			"0. 종료",
@@ -26,16 +28,17 @@ public class Controller {
 			"3. 과목별 문제 수정"
 	};
 	
-	public Controller(QuizStorage quizStorage, View view, Customer customer) {
+	public Controller(QuizStorage quizStorage, View view, Customer customer, CustomerStorage customerStorage) {
 		this.quizStorage = quizStorage;
 		this.view = view;
 		this.customer = customer;
+		this.customerStorage = customerStorage;
 	}
 	
 	
 	public void start() {
 		
-		view.displayWelcome(customer);
+		view.displayWelcome(customer, customerStorage);
 		
 		int menu;
 		
