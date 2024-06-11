@@ -1,26 +1,24 @@
 package quizbank.controller;
 
-<<<<<<< HEAD
-import quizbank.model.CustomerStorage;
-import quizbank.model.JavaQuizStorage;
-=======
+
+import quizbank.model.AlgorithmsQuizStorage;
 import quizbank.model.Customer;
 import quizbank.model.CustomerStorage;
-import quizbank.model.QuizStorage;
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
+import quizbank.model.InterfaceQuizStorage;
+import quizbank.model.JavaQuizStorage;
 import quizbank.view.View;
 
 public class Controller {
 
 	JavaQuizStorage quizStorage;
 	View view;
-<<<<<<< HEAD
 	CustomerStorage customerStorage;
 	JavaQuizStorage javaQuizStorage;
-=======
+	AlgorithmsQuizStorage algorithmsQuizStorage;
+	InterfaceQuizStorage interfaceQuizStorage;
 	Customer customer;
-	CustomerStorage customerStorage;
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
+
+
 	
 	String[] menuList = {
 			"0. 종료",
@@ -38,34 +36,26 @@ public class Controller {
 			"3. 과목별 문제 수정"
 	};
 	
-<<<<<<< HEAD
+
 	String[] QuizType = {
 			"1. 자바 문제 확인하기",
 			"2. 알고리즘 문제 확인하기",
 			"3. 인터페이스 문제 확인하기"
 	};
 	
-	public Controller(JavaQuizStorage quizStorage, View view, CustomerStorage customerStorage) {
-=======
-	public Controller(QuizStorage quizStorage, View view, Customer customer, CustomerStorage customerStorage) {
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
-		this.quizStorage = quizStorage;
+	
+	public Controller(View view, Customer customer, CustomerStorage customerStorage, JavaQuizStorage javaQuizStorage, AlgorithmsQuizStorage algorithmsQuizStorage) {
+		this.algorithmsQuizStorage = algorithmsQuizStorage;
+		this.javaQuizStorage = javaQuizStorage;
 		this.view = view;
-<<<<<<< HEAD
-=======
 		this.customer = customer;
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 		this.customerStorage = customerStorage;
 	}
 	
 	
 	public void start() {
 		
-<<<<<<< HEAD
 		view.displayWelcome(customerStorage);
-=======
-		view.displayWelcome(customer, customerStorage);
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 		
 		int menu;
 		
@@ -120,7 +110,7 @@ int menu;
 				viewAlgorithmsQuiz();
 				break;
 			case 3:
-				addBookToCart();
+				viewInterfaceQuiz();
 				break;
 			default :
 				view.showMessage("잘못된 메뉴 번호입니다.");
@@ -131,8 +121,12 @@ int menu;
 	}
 
 
+	private void viewInterfaceQuiz() {
+		interfaceQuizStorage.viewAllQuiz();
+		
+	}
 	private void viewAlgorithmsQuiz() {
-		// TODO Auto-generated method stub
+		algorithmsQuizStorage.viewAllQuiz();
 
 	}
 
