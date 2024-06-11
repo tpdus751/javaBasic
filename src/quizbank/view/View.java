@@ -42,6 +42,7 @@ public class View {
 	}
 
 	private void goToRegister(CustomerStorage customerStorage) {
+<<<<<<< HEAD
 		String id = null;
 		boolean isTrue = true;
 		Scanner input = new Scanner(System.in);
@@ -61,6 +62,25 @@ public class View {
 		String password = input.nextLine();
 		customerStorage.addCustomer(name, id, password);
 		customerStorage.saveBookList2File();
+=======
+		String id;
+		boolean isTrue = true;
+		Scanner input = new Scanner(System.in);
+		System.out.println("회원가입 진행");
+		System.out.print(">> 이름 : ");
+		String name = input.nextLine();
+		while (isTrue) {
+			System.out.print(">> ID : ");
+			id = input.nextLine();
+			isTrue = customerStorage.isPossibleId(id);
+			if (isTrue) {
+				System.out.println("이미 등록되어 있는 ID 입니다.");
+			} 
+				System.out.println("사용 가능한 ID 입니다.");
+		}
+		System.out.print(">> PASSWORD : ");
+		String password = input.nextLine();
+>>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 		
 	}
 
