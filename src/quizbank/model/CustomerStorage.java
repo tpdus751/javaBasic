@@ -25,16 +25,16 @@ public class CustomerStorage {
 			fr = new FileReader(customerFilename);
 			BufferedReader br = new BufferedReader(fr);
 			String idStr;
-			while ((idStr = br.readLine()) != null && idStr.equals("")) {
+			while ((idStr = br.readLine()) != null) {
+				if (idStr.equals("")) continue;
 				int num = Integer.parseInt(idStr);
 				String name = br.readLine();
 				String id = br.readLine();
 				String password = br.readLine();
-				String registeredTime = br.readLine();
-				customerList.add(new Customer(num, name, id, password, registeredTime));
+				customerList.add(new Customer(num, name, id, password));
 			}
-			fr.close();
 			br.close();
+			fr.close();
 		} catch (FileNotFoundException |  NumberFormatException e) {
 			System.out.println(e.getMessage());
 		}
@@ -65,8 +65,8 @@ public class CustomerStorage {
 		return null;
 	}
 
-	public void addBook(String name, String id, String password, String registeredTime) {
-		Customer customer = new Customer(++lastNum, name, id, password, registeredTime);
+	public void addCustomer(String name, String id, String password) {
+		Customer customer = new Customer(++lastNum, name, id, password);
 		customerList.add(customer);
 		isSaved = false;
 	}
@@ -83,8 +83,7 @@ public class CustomerStorage {
 				fw.write(customer.getNum() + "\n");
 				fw.write(customer.getName() + "\n");
 				fw.write(customer.getId() + "\n");
-				fw.write(customer.getPassword() + "\n");
-				fw.write(customer.getRegisteredTime() + "\n");
+				fw.write(customer.getPassword() + "\n");;
 			}
 			fw.close();
 			isSaved = true;
@@ -93,17 +92,34 @@ public class CustomerStorage {
 		}
 	}
 	
+	// 로그인 화면에서 아이디와 비밀번호가 같으면 true
 	public boolean isValidCustomer(String id, String password) {
 		for (Customer customer : customerList) {
-			if (id == customer.getId()) {
-				if (password == customer.getPassword()) {
+			if (id.equals(customer.getId())) {
+				if (password.equals(customer.getPassword())) {
 					return true;
 				}
 			}
 		}
 		return false;
 	}
-
 	
+	public boolean isPossibleId(String id) {
+		for (Customer customer : customerList) {
+			if (id == customer.getId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void count() {
+		for (Customer customer : customerList) {
+			System.out.println(customer.getNum());
+			System.out.println(customer.getId());
+			System.out.println(customer.getName());
+			System.out.println(customer.getPassword());
+		}
+	}
 	
 }

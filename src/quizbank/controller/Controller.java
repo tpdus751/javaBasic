@@ -1,14 +1,15 @@
 package quizbank.controller;
 
-import quizbank.model.Customer;
-import quizbank.model.QuizStorage;
+import quizbank.model.CustomerStorage;
+import quizbank.model.JavaQuizStorage;
 import quizbank.view.View;
 
 public class Controller {
 
-	QuizStorage quizStorage;
+	JavaQuizStorage quizStorage;
 	View view;
-	Customer customer;
+	CustomerStorage customerStorage;
+	JavaQuizStorage javaQuizStorage;
 	
 	String[] menuList = {
 			"0. 종료",
@@ -26,16 +27,22 @@ public class Controller {
 			"3. 과목별 문제 수정"
 	};
 	
-	public Controller(QuizStorage quizStorage, View view, Customer customer) {
+	String[] QuizType = {
+			"1. 자바 문제 확인하기",
+			"2. 알고리즘 문제 확인하기",
+			"3. 인터페이스 문제 확인하기"
+	};
+	
+	public Controller(JavaQuizStorage quizStorage, View view, CustomerStorage customerStorage) {
 		this.quizStorage = quizStorage;
 		this.view = view;
-		this.customer = customer;
+		this.customerStorage = customerStorage;
 	}
 	
 	
 	public void start() {
 		
-		view.displayWelcome(customer);
+		view.displayWelcome(customerStorage);
 		
 		int menu;
 		
@@ -44,7 +51,7 @@ public class Controller {
 			
 			switch (menu) {
 			case 1:
-				viewBookInfo();
+				viewQuiz();
 				break;
 			case 2:
 				viewCart();
@@ -73,6 +80,44 @@ public class Controller {
 			
 		} while (menu != 0);
 		view.showMessage("Seyeon Book Market을 종료 합니다.");
+	}
+
+
+	private void viewQuiz() {
+int menu;
+		
+		do {
+			menu = view.selectMenuNo(QuizType);
+			
+			switch (menu) {
+			case 1:
+				viewJavaQuiz();
+				break;
+			case 2:
+				viewAlgorithmsQuiz();
+				break;
+			case 3:
+				addBookToCart();
+				break;
+			default :
+				view.showMessage("잘못된 메뉴 번호입니다.");
+			}
+			
+		} while (menu != 0);
+		view.showMessage("Seyeon Book Market을 종료 합니다.");
+	}
+
+
+	private void viewAlgorithmsQuiz() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	private void viewJavaQuiz() {
+		javaQuizStorage.viewAllQuiz();
+	}
+		
 	}
 }
 

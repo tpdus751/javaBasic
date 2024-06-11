@@ -3,10 +3,47 @@ package quizbank.model;
 public class Customer extends User {
 	
 	private int num;
-	private String registeredTime;
+
 	
-	public Customer(int num, String name, String id, String password, String registeredTime) {
-		super();
+	public Customer(int num, String name, String id, String password) {
+		super(name, id, password);
+		this.num = num;
+	}
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return super.getName();
+	}
+
+	@Override
+	protected void setName(String name) {
+		// TODO Auto-generated method stub
+		super.setName(name);
+	}
+
+	@Override
+	public String getId() {
+		// TODO Auto-generated method stub
+		return super.getId();
+	}
+
+	@Override
+	public void setId(String id) {
+		// TODO Auto-generated method stub
+		super.setId(id);
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return super.getPassword();
+	}
+
+	@Override
+	public void setPassword(String password) {
+		// TODO Auto-generated method stub
+		super.setPassword(password);
 	}
 
 	public int getNum() {
@@ -17,13 +54,6 @@ public class Customer extends User {
 		this.num = num;
 	}
 
-	public String getRegisteredTime() {
-		return registeredTime;
-	}
-
-	public void setRegisteredTime(String registeredTime) {
-		this.registeredTime = registeredTime;
-	}
 	
 	
 }
