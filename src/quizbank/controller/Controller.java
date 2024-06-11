@@ -133,7 +133,7 @@ int menu;
 
 	private void viewAlgorithmsQuiz() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 
