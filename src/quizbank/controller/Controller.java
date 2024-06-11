@@ -118,7 +118,7 @@ int menu;
 		javaQuizStorage.viewAllQuiz();
 	}
 		
-	}
+	
 }
 
 
