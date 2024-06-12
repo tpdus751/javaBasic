@@ -246,7 +246,7 @@ public class Controller {
 
 
 	private boolean login() {
-		return view.goToLogin(customerStorage, cart);
+		return view.goToLogin(customerStorage);
 	}
 
 

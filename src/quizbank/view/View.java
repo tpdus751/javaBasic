@@ -1,5 +1,6 @@
 package quizbank.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import quizbank.model.Cart;
@@ -18,8 +19,35 @@ public class View {
 	
 		
 	}
-
-	
+	public void askQuestion(String[] StartAsUserList, CustomerStorage customerStorage) {
+		Scanner input = new Scanner(System.in);
+		displayMenu(StartAsUserList);
+		int answer = input.nextInt();
+		try {
+			do {
+				answer = selectMenuNo(StartAsUserList);
+				switch (answer) {
+					case 1: 
+						while(true) {
+							if (goToLogin(customerStorage)) {
+								break;
+							};
+						}
+						break;
+					case 2:
+						goToRegister(customerStorage);
+						break;
+					case 0:
+						break;
+					default :
+						System.out.println("잘못된 번호 입니다.");
+				}
+			} while (!true);
+		} catch (InputMismatchException e) {
+			System.out.println("숫자를 입력하세요");
+		}
+		
+	}
 
 	public void goToRegister(CustomerStorage customerStorage) {
 		String id = null;
@@ -44,7 +72,9 @@ public class View {
 	}
 
 
-	public boolean goToLogin(CustomerStorage customerStorage, Cart cart) {
+
+	public boolean goToLogin(CustomerStorage customerStorage) {
+
 		Scanner input = new Scanner(System.in);
 		System.out.println("퀴즈 은행을 이용하시려면 아이디와 패스워드를 입력하세요.");
 		System.out.print(">> ID : ");
@@ -56,7 +86,7 @@ public class View {
 			if (cart == null) {
 	            this.cart = new Cart("", "", 0, "", 0, "", 0); // Cart 객체 초기화
 	        }
-	        
+	       
 	        cart.setId(id);
 			
 			return true;
