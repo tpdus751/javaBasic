@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 import quizbank.view.View;
 
@@ -103,11 +105,58 @@ public class JavaQuizStorage {
 			for (Quiz quiz : javaQuizList) {
 				view.showMessage("----------------------------------");
 				System.out.println(quiz.getNum() + "번 : " + quiz.getQuizName());
+				System.out.println("정답 : " + quiz.getAnswer());
 				System.out.println("해설 : " + quiz.getComment());
 				view.showMessage("----------------------------------");
 				System.out.println();
 			}
 			
 		}
+		
+		// 랜덤으로 20개의 퀴즈를 출력하는 메서드 추가
+	    public void printRandomQuizzes() {
+	        if (javaQuizList.size() < MAX_QUANTITY) {
+	            System.out.println("! 퀴즈 리스트에 20개 이상의 문제가 필요합니다. !");
+	            return;
+	        }
+	        
+	        System.out.println("자바 퀴즈 20문제를 시작합니다.");
+	        
+
+	        // 리스트를 셔플하여 무작위로 섞음
+	        Collections.shuffle(javaQuizList);
+
+	        // 첫 번째 20개의 문제를 추출하여 출력
+	        View view = new View();
+	        Scanner input = new Scanner(System.in);
+	        ArrayList<String> submitList = new ArrayList<>();
+	        ArrayList<String> incorrectList = new ArrayList<>();
+	        int score = 0;
+	        int count = 0;
+	        
+	        for (int i = 0; i < MAX_QUANTITY; i++) {
+	            Quiz quiz = javaQuizList.get(i);
+	            view.showMessage("----------------------------------");
+	            System.out.println(++count + "번 : " + quiz.getQuizName());
+	            System.out.print("정답 : ");
+	            String submit = input.nextLine();
+	            if (submit.equals(quiz.getAnswer())) {
+	            	submitList.add(submit);
+	            	score += 5;
+	            } else {
+	            	incorrectList.add(quiz.getQuizName());
+	            }
+	            view.showMessage("----------------------------------");
+	            System.out.println();
+	        }
+	        System.out.println("총점 : " + score + "점");
+	        System.out.println();
+	        System.out.println("<틀린 문제>");
+	        System.out.println();
+	        for (int i = 0; i < incorrectList.size(); i++) {
+	        	System.out.println(incorrectList.get(i));
+	        	System.out.println();
+	        }
+	    }
 		
 }

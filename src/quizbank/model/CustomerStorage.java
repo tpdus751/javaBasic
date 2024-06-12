@@ -31,10 +31,6 @@ public class CustomerStorage {
 				String name = br.readLine();
 				String id = br.readLine();
 				String password = br.readLine();
-<<<<<<< HEAD
-=======
-				String registeredTime = br.readLine();
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 				customerList.add(new Customer(num, name, id, password));
 			}
 			br.close();
@@ -107,19 +103,7 @@ public class CustomerStorage {
 		}
 		return false;
 	}
-<<<<<<< HEAD
-=======
-	
-	public boolean isPossibleId(String id) {
-		for (Customer customer : customerList) {
-			if (id == customer.getId()) {
-				return true;
-			}
-		}
-		return false;
-	}
 
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 	
 	public boolean isPossibleId(String id) {
 		for (Customer customer : customerList) {
