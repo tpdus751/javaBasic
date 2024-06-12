@@ -3,13 +3,9 @@ package quizbank.model;
 public class Customer extends User {
 	
 	private int num;
-<<<<<<< HEAD
 
-=======
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 	
 	public Customer(int num, String name, String id, String password) {
-<<<<<<< HEAD
 		super(name, id, password);
 		this.num = num;
 	}
@@ -46,11 +42,7 @@ public class Customer extends User {
 
 	@Override
 	public void setPassword(String password) {
-		// TODO Auto-generated method stub
 		super.setPassword(password);
-=======
-		super();
->>>>>>> branch 'master' of https://github.com/tpdus751/QuizBank.git
 	}
 
 	public int getNum() {
