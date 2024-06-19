@@ -1,104 +1,85 @@
 package quizbank.model;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class CartStorage {
-	ArrayList<Cart> cartList = new ArrayList<>();
-	private String cartFilename = "cartList.txt";
-	private int lastNum;
-	private boolean isSaved;
-	
-	public CartStorage() throws IOException {
-		loadBookListFromFile();		
-		isSaved = true;
+	private ArrayList<Cart> CartList = new ArrayList<>();
+
+	public boolean isEmpty() {
+		return CartList.isEmpty();
 	}
-	
-	private void loadBookListFromFile() throws IOException {
-		FileReader fr;
-		try {
-			fr = new FileReader(cartFilename);
-			BufferedReader br = new BufferedReader(fr);
-			String idStr;
-			while ((idStr = br.readLine()) != null) {
-				if (idStr.equals("")) continue;
-				int num = Integer.parseInt(idStr);
-				String id = br.readLine();
-				String javaCollection = br.readLine();
-				int num_java = Integer.parseInt(br.readLine());
-				String algorithmsCollection = br.readLine();
-				int num_algorithms = Integer.parseInt(br.readLine());
-				String interfaceCollection = br.readLine();
-				int num_interface = Integer.parseInt(br.readLine());
-				cartList.add(new Cart(id, javaCollection, num_java, algorithmsCollection, num_algorithms, interfaceCollection, num_interface));
-			}
-			br.close();
-			fr.close();
-		} catch (FileNotFoundException |  NumberFormatException e) {
-			System.out.println(e.getMessage());
+
+	public ArrayList<Cart> getCartList() {
+		return CartList;
+	}
+
+	public int getNumItems() {
+		return CartList.size();
+	}
+
+	public String getItemInfo(int index) {
+		return CartList.get(index).toString();
+	}
+
+	public void addItem(QuizCollection quizCollection) {
+		Cart cart = getCartItem(quizCollection);
+		if (cart == null) {
+			CartList.add(new Cart(quizCollection));
+		} else {
+			cart.addQuantity(1);
 		}
 	}
 
-
-	public void deleteCartItem(String id) {
-		cartList.remove(getCartItemById(id));
-		isSaved = false;
-	}
-
-	private Object getCartItemById(String id) {
-		for (Cart cart : cartList) {
-			if (cart.getId() == id) {
-				return cart;
-			}
+	private Cart getCartItem(QuizCollection quizCollection) {
+		for (Cart cart : CartList) {
+			if (cart.getQuizCollection().equals(quizCollection)) return cart;
 		}
 		return null;
 	}
 
-	public void addCartItem(String id, String javaCollection, int num_java, String algorithmsCollection, int num_algorithms, String interfaceCollection, int num_interface) {
-		Cart cart = new Cart(id, javaCollection, num_java, algorithmsCollection, num_algorithms, interfaceCollection, num_interface);
-		cartList.add(cart);
-		isSaved = false;
-	}
-
-	public boolean isSaved() {
-		return isSaved;
-	}
-	
-	public void saveBookList2File() {
-		
-		try {
-			FileWriter fw = new FileWriter(cartFilename);
-			for (Cart cart : cartList) {
-				fw.write(cart.getId() + "\n");
-				fw.write(cart.getJavaCollection() + "\n");
-				fw.write(cart.getNum_java() + "\n");
-				fw.write(cart.getAlgorithmsCollection() + "\n");
-				fw.write(cart.getNum_algorithms() + "\n");
-				fw.write(cart.getInterfaceCollection() + "\n");
-				fw.write(cart.getNum_interface() + "\n");
-			}
-			fw.close();
-			isSaved = true;
-		} catch (IOException e) {
-			e.printStackTrace();
+	private Cart getCartItem(String quizCollectionName) {
+		for (Cart cart : CartList) {
+			if (cart.getQuizCollection().getQuizCollectionName().equals(quizCollectionName)) return cart;
 		}
+		return null;
 	}
 
+	public void resetCart() {
+		CartList.clear();
+	}
 
-	
-	public boolean isPossibleId(String id) {
-		for (Cart cart : cartList) {
-			if (id == cart.getId()) {
-				return true;
-			}
+	public boolean isValidItem(String quizCollectionName) {
+		for (Cart cart : CartList) {
+			if (cart.getQuizCollection().getQuizCollectionName().equals(quizCollectionName)) return true;
 		}
 		return false;
 	}
 
+	public void deleteItem(String quizCollectionName) {
+		Cart cart = getCartItem(quizCollectionName);
+		if (cart != null) {
+			CartList.remove(cart);
+		} else {
+			System.out.println("해당 문제집을 찾을 수 없습니다.");
+		}
+	}
 
-	
+	public void updateQuantity(String quizCollectionName, int quantity) {
+		if (quantity == 0) {
+			deleteItem(quizCollectionName);
+		} else {
+			Cart cart = getCartItem(quizCollectionName);
+			if (cart != null) {
+				cart.setQuantity(quantity);
+			}
+		}
+	}
+
+	public int getTotalPrice() {
+		int totalPrice = 0;
+		for (Cart cart : CartList) {
+			totalPrice += cart.getPrice();
+		}
+		return totalPrice;
+	}
 }

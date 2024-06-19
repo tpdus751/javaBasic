@@ -1,81 +1,69 @@
 package quizbank.model;
 
 public class Cart {
-	public String id;
-	private String javaCollection; 
-	private int num_java;
-	private String algorithmsCollection;
-	private int num_algorithms;
-	private String interfaceCollection;
-	private int num_interface;
-	CustomerStorage customerStorage;
-	
-	public Cart(String id, String javaCollection, int num_java, String algorithmsCollection, int num_algorithms,
-			String interfaceCollection, int num_interface) {
-		this.id = id;
-		this.javaCollection = javaCollection;
-		this.num_java = num_java;
-		this.algorithmsCollection = algorithmsCollection;
-		this.num_algorithms = num_algorithms;
-		this.interfaceCollection = interfaceCollection;
-		this.num_interface = num_interface;
-	}
+	QuizCollection quizCollection;
+	Customer customer;
+	int num;
+	String customerId;
+	String quizCollectionName;
+	int quantity;
 
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public String getJavaCollection() {
-		return javaCollection;
-	}
-
-	public void setJavaCollection(String javaCollection) {
-		this.javaCollection = javaCollection;
-	}
-
-	public int getNum_java() {
-		return num_java;
-	}
-
-	public void setNum_java(int num_java) {
-		this.num_java = num_java;
-	}
-
-	public String getAlgorithmsCollection() {
-		return algorithmsCollection;
-	}
-
-	public void setAlgorithmsCollection(String algorithmeCollection) {
-		this.algorithmsCollection = algorithmsCollection;
-	}
-
-	public int getNum_algorithms() {
-		return num_algorithms;
-	}
-
-	public void setNum_algorithms(int num_algorithms) {
-		this.num_algorithms = num_algorithms;
-	}
-
-	public String getInterfaceCollection() {
-		return interfaceCollection;
-	}
-
-	public void setInterfaceCollection(String interfaceCollection) {
-		this.interfaceCollection = interfaceCollection;
-	}
-
-	public int getNum_interface() {
-		return num_interface;
-	}
-
-	public void setNum_interface(int num_interface) {
-		this.num_interface = num_interface;
+	public Cart(QuizCollection quizCollection) {
+		this.quizCollection = quizCollection;
+		this.num = quizCollection.getNum();
+		this.quizCollectionName = quizCollection.getQuizCollectionName();
+		this.quantity = 1;
 	}
 	
+	public QuizCollection getQuizCollection() {
+		return quizCollection;
+	}
+
+	public void setQuizCollection(QuizCollection quizCollection) {
+		this.quizCollection = quizCollection;
+	}
+
+	public int getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+
+	public String getQuizCollectionName() {
+		return quizCollectionName;
+	}
+
+	public void setQuizCollectionName(String quizCollectionName) {
+		this.quizCollectionName = quizCollectionName;
+	}
+
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	public int getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public void addQuantity(int quantity) {
+		this.quantity += quantity;
+		
+	}
+	
+	public int getPrice() {
+		return quantity * quizCollection.getPrice();
+	}
+	
+	@Override
+	public String toString() {
+		return num + "번 : " + quizCollectionName + " " + quantity + "권, 총 가격 : " + getPrice() + "원";
+	}
 	
 }
